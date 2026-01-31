@@ -66,15 +66,21 @@ def history(request):
                     elif category == "Other":
                         other += expense.amount
     total = food + transport + education + health + shopping + other
-    food_percentage = (food / total) * 100
-    transport_percentage = (transport / total) * 100
-    education_percentage = (education / total) * 100
-    health_percentage = (health / total) * 100
-    shopping_percentage = (shopping / total) * 100
-    other_percentage = (other / total) * 100
+    if total != 0:
+        food_percentage = (food / total) * 100
+        transport_percentage = (transport / total) * 100
+        education_percentage = (education / total) * 100
+        health_percentage = (health / total) * 100
+        shopping_percentage = (shopping / total) * 100
+        other_percentage = (other / total) * 100
+    else:
+        food_percentage = 0
+        transport_percentage = 0
+        education_percentage = 0
+        health_percentage = 0
+        shopping_percentage = 0
+        other_percentage = 0
 
-            
-        
     return render(request, 'history.html', {'expenses': expenses, 'categories': categories,
         'food_percentage': food_percentage,
         'transport_percentage': transport_percentage,

@@ -1,0 +1,23 @@
+{
+    "editor.inlineSuggest.enabled": false,
+    "editor.quickSuggestions": {
+        "other": "off",
+        "comments": "off",
+        "strings": "off"
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.parameterHints.enabled": false,
+    "editor.hover.enabled": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "github.copilot.inlineSuggest.enable": false,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "codeium.enableCodeCompletions": false,
+    "blackbox.completions": false,
+    "blackbox.enable": false
+}

@@ -41,51 +41,34 @@ def add(request):
 
 @login_required
 def history(request):
-    food = 0
-    transport = 0
-    education = 0
-    health = 0
-    shopping = 0
-    other = 0
-    total = 0
-    expenses = Expense.objects.filter(user=request.user).order_by('-date', '-id')
+    # Initialize category totals
     categories = ["Food", "Transport", "Education", "Health", "Shopping", "Other"]
-    for category in categories:
-            for expense in expenses:
-                if expense.category == category:
-                    if category == "Food":
-                        food += expense.amount
-                    elif category == "Transport":
-                        transport += expense.amount
-                    elif category == "Education":
-                        education += expense.amount
-                    elif category == "Health":
-                        health += expense.amount
-                    elif category == "Shopping":
-                        shopping += expense.amount
-                    elif category == "Other":
-                        other += expense.amount
-    total = food + transport + education + health + shopping + other
-    if total > 0:
-        food_percentage = (food / total) * 100
-        transport_percentage = (transport / total) * 100
-        education_percentage = (education / total) * 100
-        health_percentage = (health / total) * 100
-        shopping_percentage = (shopping / total) * 100
-        other_percentage = (other / total) * 100
-    else:
-        food_percentage = 0
-        transport_percentage = 0
-        education_percentage = 0
-        health_percentage = 0
-        shopping_percentage = 0
-        other_percentage = 0
+    data = {cat: 0 for cat in categories}
 
-    return render(request, 'history.html', {'expenses': expenses, 'categories': categories,
-        'food_percentage': food_percentage,
-        'transport_percentage': transport_percentage,
-        'education_percentage': education_percentage,
-        'health_percentage': health_percentage,
-        'shopping_percentage': shopping_percentage,
-        'other_percentage': other_percentage
+    expenses = Expense.objects.filter(user=request.user).order_by('-date', '-id')
+
+    # Sum up amounts
+    total = 0
+    for expense in expenses:
+        if expense.category in data:
+            # Ensure amount is float for calculation
+            amount = float(expense.amount)
+            data[expense.category] += amount
+            total += amount
+
+    # Calculate percentages safely
+    if total > 0:
+        percentages = {cat: (amt / total) * 100 for cat, amt in data.items()}
+    else:
+        percentages = {cat: 0 for cat in data}
+
+    return render(request, 'history.html', {
+        'expenses': expenses,
+        'categories': categories,
+        'food_percentage': percentages['Food'],
+        'transport_percentage': percentages['Transport'],
+        'education_percentage': percentages['Education'],
+        'health_percentage': percentages['Health'],
+        'shopping_percentage': percentages['Shopping'],
+        'other_percentage': percentages['Other']
     })

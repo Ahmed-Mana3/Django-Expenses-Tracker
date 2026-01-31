@@ -66,7 +66,7 @@ def history(request):
                     elif category == "Other":
                         other += expense.amount
     total = food + transport + education + health + shopping + other
-    if total != 0:
+    if total > 0:
         food_percentage = (food / total) * 100
         transport_percentage = (transport / total) * 100
         education_percentage = (education / total) * 100

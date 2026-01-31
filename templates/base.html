@@ -12,6 +12,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Tailwind Custom Config -->
     <script src="{% static 'tailwind.config.js' %}"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+    <!-- Web App Manifest (for Desktop/PWA installation) -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <!-- Theme color for mobile browser bars -->
+    <meta name="theme-color" content="#2563eb">
+
     {% block extra_head %}{% endblock %}
 </head>
 

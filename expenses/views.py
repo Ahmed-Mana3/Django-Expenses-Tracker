@@ -7,7 +7,7 @@ from datetime import date
 @login_required
 def index(request):
     total = 0
-    expenses_today = Expense.objects.filter(user=request.user, date=timezone.now().date())
+    expenses_today = Expense.objects.filter(user=request.user, date=timezone.now().date()).order_by('-date', '-id')
     for expense in expenses_today:
         expense.amount = float(expense.amount)
         total += expense.amount
@@ -48,7 +48,7 @@ def history(request):
     shopping = 0
     other = 0
     total = 0
-    expenses = Expense.objects.filter(user=request.user)
+    expenses = Expense.objects.filter(user=request.user).order_by('-date', '-id')
     categories = ["Food", "Transport", "Education", "Health", "Shopping", "Other"]
     for category in categories:
             for expense in expenses:

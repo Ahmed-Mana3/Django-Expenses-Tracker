@@ -50,4 +50,4 @@ A simple, beautiful, and mobile-friendly web application to track your daily exp
    Visit `http://127.0.0.1:8000/` and register your account!
 
 ---
-Built with ❤️ using Django and Flowbite.
+Built with ❤️ by Ahmed Medhat Mannaa using Django and Flowbite.
